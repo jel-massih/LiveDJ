@@ -1,0 +1,152 @@
+<!doctype html>
+
+<html>
+  
+  <head>
+    <title>Battle Room | Live DJ</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script src="js/delivery.js"></script> 
+    <script src="js/rdio.js"></script>
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+    </style>
+
+    
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <div id="dj1Panel"  class="panel panel-default">
+            <div id="uploadDiv1" style="display:none; overflow:hidden" class="panel-heading">Next Song:<input type="file"></div>
+            <div id="dj1Name" class="panel-heading">DJ Sirmixalot<br></div>
+            <ul class="list-group">
+              <li style="width:100%" class="list-group-item">Round 1 - <span class="scoreSpan" id="dj1Round1VoteCount">0</span><br></li>
+              <li class="list-group-item"><span>Round 2 - </span><span class="scoreSpan" id="dj1Round2VoteCount">0</span><br></li>
+              <li class="list-group-item">Round 3 - <span class="scoreSpan" id="dj1Round3VoteCount">0</span><br></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-2">
+                <button id="vote_up" style="min-height:50px; color:black;margin-top:55px;padding-top:20px" class="btn btn-block btn-large btn-success btn-lg">
+                  <i class="fa fa-heart fa-2x"></i>
+                </button>
+              </div>
+              <div style="padding;" class="col-md-8">
+                <h4 class="text-center">Current DJ:</h4>
+                <h1 id="activeDJName" class="text-center">No DJ's Are Playing</h1>
+                <h4 class="text-center">Playing</h4>
+                <h2 id="activeSongName" class="text-center">No Song Is Playing :(</h2>
+                <h4 class="text-center"> Crowd Approval </h4>
+                <div class="row-fluid">
+                 <div class="col-md-6">
+                    <span class="label lines-bg-color text-center">
+                      <i class="fa fa-heart fa-3x"></i>
+                      <span style="padding-left:25px;font-size:30px;" id="likesText">0</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="label lines-bg-colortext-center">
+                      <i class="fa fa-thumbs-down fa-3x"></i>
+                      <span style="padding-left:25px;font-size:30px" id="dislikesText">0</span>
+                    </span>
+                  </div>
+                </div>
+                <h4 class="text-center">Time Remaining</h4>
+                <h2 id="timeLeft" class="text-center">0</h2>
+              </div>
+              <div class="col-md-2">
+                <button id="vote_down" style="min-height:50px; color:black;margin-top:55px;padding-top:20px" class="btn btn-block btn-large btn-danger btn-lg">
+                  <i class="fa fa-thumbs-down fa-2x"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div id="dj2Panel" class="panel panel-default">
+            <div id="uploadDiv2" style="display:none; overflow:hidden" class="panel-heading">Next Song:<input type="file"></div>
+            <div id="dj2Name" class="panel-heading">DJ Alfy Alf<br></div>
+            <ul class="list-group">
+              <li class="list-group-item">Round 1 - <span class="scoreSpan" id="dj2Round1VoteCount">0</span><br></li>
+              <li class="list-group-item">Round 2 - <span class="scoreSpan" id="dj2Round2VoteCount">0</span><br></li>
+              <li class="list-group-item">Round 3 - <span class="scoreSpan" id="dj2Round3VoteCount">0</span><br></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div style="padding-left:0px;" class="container">
+            <div id="chatBox" style="overflow:hidden;padding-left:0;height:200px;border: 1px solid black"></div>
+            <div style="padding-right:0px;padding-left:5px;" class="container">
+                <div class="row">
+                  <div class="col-md-8">
+                    <input  id="chatInput" class="form-control" type="text">
+                  </div>
+                  <div class="col-md-4">
+                    <input id="sendBtn" value="Send" class="form-control" type="button">
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">Connected Users:<br></div>
+            <ul id="userList" class="list-group">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div id="apiswf"></div>
+    <div id="rdioPlayer" class="rdioPlayer">
+      <div class="row">
+      <div class="col-md-2" style="padding-top: 80px">
+        <button id="prev_track" style="min-height:50px; font-size:20px; color:black" class="btn btn-block btn-large btn-lg">
+          <i class="fa fa-backward"></i>
+        </button>
+      </div>
+      <div class="col-md-8">
+        <div style="width:200px; padding-left:30px">
+          <img src="" id="art">
+          <div style="width:200px;text-align:center;" id="track"></div>
+          <div style="width:200px;text-align:center;" id="artist"></div>
+        </div>
+      </div>
+      <div class="col-md-2" style="padding-top: 80px">
+        <button id="next_track" style="min-height:50px; color:black" class="btn btn-block btn-large btn-lg">
+          <i class="fa fa-forward"></i>
+        </button>
+      </div>
+    </div>
+    </div>
+
+    <audio autoplay controls hidden="true"><source src="" id="djaudio" type='audio/mpeg'></audio>
+    <script src="js/battleRoom.js"></script>
+  </body>
+</html>

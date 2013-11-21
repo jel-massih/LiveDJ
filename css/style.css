@@ -1,0 +1,62 @@
+li {
+	list-style-type: none;
+}
+
+.jumbotron {
+	text-align: center;
+}
+
+.detailList {
+	width:300px;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ #map_canvas {
+    width: 500px;
+    height: 400px;
+    background-color: #CCC;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icon-thumbs_up {
+    background-image: url("https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/like-128.png");
+    background-position: center center;
+}
+
+.label {
+    display: block;
+    white-space: normal;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #000000;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: baseline;
+}
+
+i.fa-icon-large {
+    font-size: 340%;
+}
+
+i.fa-icon-med {
+    font-size: 300%;
+}
+
+.rdioPlayer {
+    width:400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.scoreSpan {
+    float:right;
+    font-weight:bold;
+    font-size:25px;
+    margin-top:-7px;
+}

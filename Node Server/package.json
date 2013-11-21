@@ -1,0 +1,17 @@
+{
+  "name": "LiveDJ",
+  "subdomain": "livedj",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "version": "0.0.1-136",
+  "dependencies": {
+    "express": "3.1.x",
+    "socket.io": "0.9.16",
+    "delivery": "0.0.3"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
+}
